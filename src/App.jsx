@@ -1,114 +1,120 @@
-// src/App.jsx (The Final, Corrected Version with ALL Buttons)
-import React, { useState, useEffect, useCallback } from 'react'; // Add useCallback
-import { useWeather } from './hooks/useWeather.js';
-import { getBackgroundImage } from './utils/backgrounds.js';
+// src/App.jsx (Final & Fortified Version)
+import React, { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
 
-// Using the REAL file names you provided
+// Import all components
 import CurrentWeather from './components/CurrentWeather.jsx';
 import DailyForecast from './components/DailyForecast.jsx';
 import HourlyForecast from './components/HourlyForecast.jsx';
 import WeatherChart from './components/WeatherChart.jsx';
+import PrecipitationChart from './components/PrecipitationChart.jsx';
 import SearchBar from './components/SearchBar.jsx';
 import SurpriseMe from './components/SurpriseMe.jsx';
-import LoadingSpinner from './components/LoadingSpinner.jsx';
-
+import ThemeToggle from './components/ThemeToggle.jsx';
+import UnitToggle from './components/UnitToggle.jsx';
+import { getBackgroundImage } from './utils/backgrounds.js';
 import './App.css';
 
-// Simple components that were missing
-const ErrorBox = ({ message, onClear }) => (
-  <div className="solid-card error-box">
-    <p>⚠️ {message}</p>
-    <button onClick={onClear}>Try again</button>
-  </div>
-);
-
-const WelcomeMessage = () => (
-  <div className="solid-card welcome-message">
-    <h2>Welcome to WeatherWise</h2>
-    <p>Enter a city name or use your location to get the weather forecast.</p>
-  </div>
-);
-
 function App() {
+  const [weatherData, setWeatherData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [unit, setUnit] = useState('celsius');
-  const { weatherData, error, loading, fetchWeatherData, clearError } = useWeather(unit);
-  const [background, setBackground] = useState(getBackgroundImage(null, 1));
+  const [city, setCity] = useState('');
 
-  // --- 1. DEFINE THE GEOLOCATION HANDLER ---
+  const fetchWeather = useCallback(async (params) => {
+    setLoading(true);
+    setError('');
+    try {
+      const response = await axios.get('/api/weather.cjs', { params });
+      setWeatherData(response.data);
+    } catch (err) {
+      const errorMessage = err.response?.data?.error || 'Failed to fetch weather data. Please try again.';
+      setError(errorMessage);
+      setWeatherData(null); // Clear old data on error
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   const handleGeolocation = useCallback(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => fetchWeatherData({ coords: position.coords }),
-        (err) => console.error(`Geolocation error: ${err.message}`) // Log error properly
+        (position) => {
+          fetchWeather({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            unit: unit,
+          });
+        },
+        () => {
+          setError('Geolocation permission denied. Please enter a city manually or enable location services.');
+          setLoading(false);
+        }
       );
     } else {
-      console.error('Geolocation is not supported by this browser.');
+      setError('Geolocation is not supported by this browser.');
+      setLoading(false);
     }
-  }, [fetchWeatherData]);
-  // --- END OF GEOLOCATION HANDLER ---
+  }, [fetchWeather, unit]);
 
+  // Fetch weather on initial load using geolocation
   useEffect(() => {
-    if (weatherData && weatherData.current) {
-      const newBg = getBackgroundImage(weatherData.current.weathercode, weatherData.current.is_day);
-      setBackground(newBg);
-    }
-  }, [weatherData]);
-
-  useEffect(() => {
-    // On initial load, try to get location
     handleGeolocation();
-  }, [handleGeolocation]); // Depend on the memoized function
+  }, [handleGeolocation]);
 
-  const handleSearch = (city) => {
-    fetchWeatherData({ city });
+  const handleSearch = (searchCity) => {
+    setCity(searchCity);
+    fetchWeather({ city: searchCity, unit: unit });
   };
 
   const handleUnitToggle = () => {
-    setUnit((prevUnit) => (prevUnit === 'celsius' ? 'fahrenheit' : 'celsius'));
+    const newUnit = unit === 'celsius' ? 'fahrenheit' : 'celsius';
+    setUnit(newUnit);
+    // Refetch weather with the new unit
+    if (weatherData) {
+        const params = weatherData.city 
+            ? { city: weatherData.city, unit: newUnit }
+            : { latitude: weatherData.latitude, longitude: weatherData.longitude, unit: newUnit };
+        fetchWeather(params);
+    }
   };
 
-  const handleSurpriseMe = () => {
-    const cities = ["Tokyo", "Delhi", "Shanghai", "São Paulo", "Mumbai", "Mexico City", "Beijing", "Osaka", "Cairo", "New York", "Dhaka", "Karachi", "Buenos Aires", "Kolkata", "Istanbul", "Chongqing", "Lagos", "Manila", "Rio de Janeiro", "Tianjin"];
-    const randomCity = cities[Math.floor(Math.random() * cities.length)];
-    fetchWeatherData({ city: randomCity });
-  };
-
-  const toggleTheme = () => {
-    document.body.classList.toggle('dark');
-  };
+  const backgroundImageUrl = weatherData?.current
+    ? getBackgroundImage(weatherData.current.weathercode, weatherData.current.is_day)
+    : getBackgroundImage(); // Default background
 
   return (
-    <div className="App" style={{ backgroundImage: `url(${background})` }}>
+    <div className="App" style={{ backgroundImage: `url(${backgroundImageUrl})` }}>
       <div className="main-container">
-        <div className="top-bar">
+        <header className="top-bar">
           <SearchBar onSearch={handleSearch} />
           <div className="button-group">
-            <button onClick={toggleTheme} title="Toggle Theme">🌙</button>
-            <button onClick={handleUnitToggle} title="Toggle Units">
-              {unit === 'celsius' ? '°C' : '°F'}
-            </button>
-            <SurpriseMe onSurprise={handleSurpriseMe} />
-            {/* --- 2. ADD THE LOCATION BUTTON BACK --- */}
-            <button onClick={handleGeolocation} title="Use My Location">
-              📍
-            </button>
-            {/* --- END OF ADDED BUTTON --- */}
+            <SurpriseMe onSurprise={handleSearch} />
+            <button onClick={handleGeolocation} aria-label="Use My Location">📍</button>
+            <ThemeToggle />
+            <UnitToggle unit={unit} onToggle={handleUnitToggle} />
           </div>
-        </div>
+        </header>
 
-        <div className="content-area">
-          {loading && <LoadingSpinner />}
-          {error && <ErrorBox message={error} onClear={clearError} />}
-          {!loading && !error && !weatherData && <WelcomeMessage />}
-          {!loading && !error && weatherData && (
+        <main className="content-area">
+          {loading && <div className="loading-spinner"></div>}
+          {error && !loading && <div className="solid-card error-box">⚠️ {error}</div>}
+          
+          {/* --- THIS IS THE CRITICAL FIX --- */}
+          {/* Only render components if weatherData and weatherData.current exist */}
+          {weatherData && weatherData.current && !loading && !error && (
             <>
               <CurrentWeather data={weatherData} unit={unit} />
-              <HourlyForecast data={weatherData} unit={unit} />
-              <DailyForecast data={weatherData} unit={unit} />
-              <WeatherChart data={weatherData} unit={unit} />
+              <HourlyForecast data={weatherData.hourly} unit={unit} />
+              <DailyForecast data={weatherData.daily} unit={unit} />
+              <WeatherChart dailyData={weatherData.daily} unit={unit} />
+              <PrecipitationChart dailyData={weatherData.daily} />
             </>
           )}
-        </div>
+          {/* --- END OF CRITICAL FIX --- */}
+
+        </main>
       </div>
     </div>
   );
