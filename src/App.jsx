@@ -10,7 +10,6 @@ import WeatherChart from './components/WeatherChart.jsx';
 import PrecipitationChart from './components/PrecipitationChart.jsx';
 import SearchBar from './components/SearchBar.jsx';
 import SurpriseMe from './components/SurpriseMe.jsx';
-import ThemeToggle from './components/ThemeToggle.jsx';
 import UnitToggle from './components/UnitToggle.jsx';
 import { getBackgroundImage } from './utils/backgrounds.js';
 import './App.css';
