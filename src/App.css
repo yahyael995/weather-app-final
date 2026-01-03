@@ -1,0 +1,310 @@
+/* =================================================================== */
+/* ===      WEATHER REACT - FINAL & CLEANED CSS (v1.2 - Wider)     === */
+/* =================================================================== */
+
+/* --- 1. Global Styles & Theme Variables --- */
+:root {
+  --text-color: #222;
+  --card-bg: white;
+  --border-color: #e0e0e0;
+  --hover-bg: #f0f0f0;
+  --shadow-color: rgba(0, 0, 0, 0.15);
+}
+
+body.dark {
+  --text-color: #e0e0e0;
+  --card-bg: #2c2c2c;
+  --border-color: #444;
+  --hover-bg: #3a3a3a;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+body {
+  margin: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-color);
+  transition: background-color 0.3s ease;
+}
+
+/* --- 2. Main App Layout & Background --- */
+.App {
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box; /* Ensures padding doesn't add to the width/height */
+
+  /* Centering the main content container */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Aligns content to the top */
+
+  /* Background Image Styles */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  transition: background-image 0.5s ease-in-out;
+  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.3); /* Dark overlay for readability */
+}
+
+/* The container for all our content, perfectly centered */
+.main-container {
+  width: 100%;
+  max-width: 800px; /* INCREASED TO MAKE CARDS WIDER */
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Modern way to add space between all direct children */
+}
+
+/* --- 3. Top Bar, Search & Buttons --- */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap; /* Allows buttons to wrap on very small screens */
+}
+
+.search-bar {
+  flex-grow: 1; /* Allows search to take available space */
+  display: flex;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1em;
+  border-radius: 25px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+  border-color: #8884d8;
+  box-shadow: 0 0 5px rgba(136, 132, 216, 0.5);
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.button-group button {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 1.5em;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease; /* This line was already here, it's good */
+}
+
+.button-group button:hover {
+  background-color: #8884d8;
+  color: white;
+  border-color: #8884d8;
+  transform: scale(1.1) translateY(-2px); /* Make it slightly bigger and lift it */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on hover */
+}
+
+/* --- 4. Content Area & Card Styles --- */
+.content-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Adds space between all cards in the content area */
+}
+
+/* The ONE style for all our cards */
+.solid-card {
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 16px var(--shadow-color);
+  color: var(--text-color);
+}
+
+/* --- 5. Specific Card Content Styles --- */
+
+/* Current Weather */
+.current-weather {
+  text-align: center;
+}
+.current-weather h1 {
+  margin: 0;
+  font-size: 4em;
+}
+.current-weather .location {
+  font-size: 2em;
+  margin: 0;
+}
+.current-weather .description {
+  font-size: 1.2em;
+  text-transform: capitalize;
+}
+.current-weather .details {
+  margin-top: 20px;
+}
+
+/* Hourly Forecast */
+.hourly-forecast h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.hourly-scroll {
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 15px; /* Space for scrollbar */
+}
+.hour-item {
+  flex: 0 0 70px; /* Fixed width for each item */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+  padding: 10px;
+  /* This is now a solid card itself */
+  background-color: var(--hover-bg);
+  border-radius: 10px;
+}
+.hour-item:last-child {
+  margin-right: 0;
+}
+
+/* Daily Forecast */
+.daily-forecast h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.day-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  background-color: var(--hover-bg);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.day-item:last-child {
+  margin-bottom: 0;
+}
+
+.day-item:hover {
+  transform: translateX(5px); /* Move it slightly to the right */
+  background-color: var(--card-bg); /* Make it pop a bit */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Charts */
+.chart-container h3 {
+  margin-top: 0;
+  text-align: center;
+}
+
+/* --- 6. Status Indicators (Loading, Error, Welcome) --- */
+.loading-spinner {
+  margin: 50px auto;
+  width: 60px;
+  height: 60px;
+  border: 5px solid rgba(100, 100, 100, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--text-color);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-box,
+.welcome-message {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.error-box {
+  border-left: 5px solid #e74c3c; /* Red accent for error */
+}
+/* --- 7. Animations & Transitions (New Section) --- */
+
+/* This will make the content area fade in smoothly */
+.content-area {
+  animation: fadeIn 0.75s ease-in-out;
+}
+
+/* Define the fadeIn animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px); /* Start slightly lower */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* End at its normal position */
+  }
+}
+
+/* Add a smooth transition to the welcome/error messages */
+.welcome-message,
+.error-box {
+  transition: all 0.5s ease;
+}
+/* --- 8. Mobile Responsiveness (New Section) --- */
+
+/* This block of CSS will only apply to screens 640px wide or smaller */
+@media (max-width: 640px) {
+  /* Reduce overall padding for the app to save space */
+  .App {
+    padding: 10px;
+  }
+
+  /* Allow the top bar to wrap more gracefully */
+  .top-bar {
+    flex-direction: column; /* Stack search bar and buttons vertically */
+    gap: 15px;
+  }
+
+  .search-bar {
+    width: 100%; /* Make search bar take full width */
+  }
+
+  .button-group {
+    justify-content: center; /* Center the buttons */
+    width: 100%;
+  }
+
+  /* Reduce the size of the main temperature display */
+  .current-weather h1 {
+    font-size: 3.5em; /* Was 4em */
+  }
+
+  /* Reduce the size of the location name */
+  .current-weather .location {
+    font-size: 1.5em; /* Was 2em */
+  }
+
+  /* Reduce padding inside the cards to make more room for content */
+  .solid-card {
+    padding: 15px;
+  }
+
+  /* Make the font in the daily forecast slightly smaller */
+  .day-item {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+}

@@ -1,0 +1,47 @@
+/* CSS for HORIZONTAL Hourly Forecast */
+.hourly-forecast {
+  background-color: var(--container-bg);
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.hourly-forecast h3 {
+  margin-top: 0;
+  text-align: center;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding-bottom: 15px;
+}
+.hour-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--item-bg);
+  padding: 15px 10px;
+  border-radius: 10px;
+  min-width: 70px;
+}
+.hour-card p {
+  margin: 0;
+  font-size: 0.9em;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+.hour-card .temp {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.hour-card .weather-icon {
+  font-size: 2em;
+}

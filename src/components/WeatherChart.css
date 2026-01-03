@@ -1,0 +1,22 @@
+/* D:/weather-react/src/components/WeatherChart.css */
+
+.weather-chart {
+  background-color: var(
+    --container-bg
+  ); /* This is the key property for the background */
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.weather-chart h3 {
+  margin-top: 0;
+  text-align: center;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}

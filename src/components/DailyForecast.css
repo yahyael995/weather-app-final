@@ -1,0 +1,47 @@
+/* CSS for VERTICAL Daily Forecast */
+.daily-forecast {
+  background-color: var(--container-bg);
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.daily-forecast h2 {
+  margin-top: 0;
+  text-align: center;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+.daily-items {
+  display: grid;
+  gap: 15px;
+}
+.daily-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  text-align: center;
+  background-color: var(--item-bg);
+  padding: 10px;
+  border-radius: 10px;
+}
+.daily-item p {
+  margin: 0;
+  font-size: 1em;
+  color: var(--text-color);
+}
+.daily-item p:first-child {
+  font-weight: bold;
+  text-align: left;
+}
+.daily-item p:last-child {
+  text-align: right;
+  font-weight: bold;
+}
+.daily-item .weather-icon {
+  font-size: 2em;
+}

@@ -1,0 +1,59 @@
+[33me7d1df7[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix(core): Final combined fix for imports and error handling
+[33m74e98c1[m fix(core): Add missing useEffect import
+[33m93d4efa[m fix(core): Ensure error state is always a string
+[33m6d3cb16[m test: Add console log to debug unit toggle
+[33m6f159ac[m fix(core): Correctly refetch data on unit toggle
+[33mf3a48e6[m feat: Add ErrorBoundary to prevent UI crashes
+[33md3546ce[m fix(ui): Add bulletproof checks to all chart components
+[33m104e4ee[m fix(ui): Add bulletproof checks to HourlyForecast
+[33md421174[m fix(ui): Add bulletproof checks to DailyForecast to prevent crash
+[33m386ce2a[m feat!: Overhaul utils to support WeatherAPI codes
+[33m962880e[m fix(ui): Correct missing import in CurrentWeather component
+[33m99d8872[m fix(ui): Adapt frontend components to WeatherAPI data structure
+[33mc126dbb[m fix(api): Manually build URL string to guarantee parameter delivery
+[33mdc435c7[m fix(api): Correct parameter handling in useWeather hook
+[33m0b617d9[m fix(api): Correct parameter handling in useWeather hook
+[33m6a429d3[m fix(api): Correct parameter handling in useWeather hook
+[33mb16ca44[m fix(render): Prevent crash on initial load and correct weather_code property
+[33m9e6e786[m fix(api ): Hardcode API URL to resolve Vercel env issue
+[33ma15e129[m fix(api): Prevent crash by providing fallback for API URL
+[33m01da3da[m fix(api): Correct parameter handling in useWeather hook
+[33me3ed3b1[m fix(api): Correct parameter handling in useWeather hook
+[33mbf394bf[m fix(pwa): Refactor PWA setup using vite-plugin-pwa
+[33m29bb7cc[m feat: Add basic PWA manifest and icons
+[33m630e983[m feat: Add social media meta tags for rich link previews
+[33mc029b6b[m chore(deps): Update frontend dependencies
+[33me6c7932[m perf: Compress background images to improve load times
+[33m67ed8ed[m build: Add format script to package.json
+[33m97da6a0[m chore: Add .gitignore for Node.js backend
+[33m187dd0f[m fix(docs): Correct screenshot link in README
+[33ma14362c[m docs: Add application screenshot to README
+[33mc6acd81[m docs: Update and improve README.md with detailed project information
+[33mbc3e29a[m style: Format code using Prettier
+[33m2a07c61[m chore: Clean up unused code
+[33me6666b4[m feat: Add dynamic page title based on current weather
+[33m7e86f99[m feat(ui): Improve initial state and welcome messages
+[33ma297407[m feat(search): Create SearchBar component with loading state and input clearing
+[33m4740df8[m feat: Automatically fetch weather on initial load using geolocation
+[33m78ee2d7[m refactor: Extract data fetching logic into useWeather custom hook
+[33mfd572a8[m perf: Implement lazy loading for chart components
+[33mfaf16b6[m perf: Implement lazy loading for chart components
+[33m92d1aa8[m feat(css): Improve mobile responsiveness for small screens
+[33m05cb525[m feat(ui): Add simple fade-in and hover animations
+[33me550dea[m feat(error-handling): Add request timeout and improve error messages
+[33m60fde51[m docs: Add comments to App.jsx for clarity
+[33md4ed148[m[33m ([m[1;33mtag: [m[1;33mv1.0.1[m[33m)[m fix(ui): Enable night icons for CurrentWeather component
+[33m90bf347[m fix(build): Correct scope issue in icons.js causing build failure
+[33m5d556b4[m fix(forecast): Correct hourly forecast logic and night icons
+[33m38e4930[m fix(ui): Set default background on initial load
+[33mcd4970a[m fix(ui): Correct logic in getBackgroundImage to use is_day
+[33ma3ff12e[m fix(ui): Correct weathercode variable for dynamic background
+[33mc8e1031[m fix(ui): Restore safety check in DailyForecast to prevent crash
+[33ma86e603[m fix(ui): Use correct variable for weather description
+[33m7278bb8[m fix: Sync iconMap with descriptionMap to show correct icons
+[33m944f698[m fix: Add all weather descriptions to prevent 'Unknown'
+[33m327177b[m feat: Use environment variable for API URL
+[33ma5fe533[m feat: Add geolocation, dynamic assets, and UI overhaul
+[33mf36bec6[m Docs: Add final project documentation
+[33m5785137[m Final: Project complete, deployed, and fully functional
+[33mc18a219[m Initial commit for React frontend
