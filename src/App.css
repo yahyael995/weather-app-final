@@ -308,3 +308,9 @@ body {
     font-size: 0.9em;
   }
 }
+.current-weather-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
